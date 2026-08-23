@@ -897,9 +897,12 @@ Section "HTTP/40x"
 	SectionIn ${INSTTYPE_MOST}
 	DetailPrint '=====[ ${__SECTION__} ]==============================='
 
+    ; !define /redef urlbase 'https://httpbin.org/status'  ; down occasionally
+    !define /redef urlbase 'https://httpbun.com/status'
+
 	; -- GET
-	!define /redef LINK 'https://httpbin.org/status/401'
-	!define /redef FILE '$g_workdir\_test_status_402_get.json'
+	!define /redef LINK '${urlbase}/401'
+	!define /redef FILE '$g_workdir\_test_status_401_get.json'
 	DetailPrint 'NScurl::http GET "${LINK}" "${FILE}"'
 	NScurl::http GET "${LINK}" "${FILE}" /RETURN "@id@" /INSIST /CANCEL /TAG "test" /END
 	Pop $0	; transfer ID
@@ -911,7 +914,7 @@ Section "HTTP/40x"
 	!insertmacro REPORT_TEST "http" 401 $1 $2
 
 	; -- POST
-	!define /redef LINK 'https://httpbin.org/status/402'
+	!define /redef LINK '${urlbase}/402'
 	!define /redef FILE '$g_workdir\_test_status_402_post.json'
 	DetailPrint 'NScurl::http POST "${LINK}" "${FILE}"'
 	NScurl::http POST "${LINK}" "${FILE}" /RETURN "@id@" /INSIST /CANCEL /TAG "test" /END
@@ -924,7 +927,7 @@ Section "HTTP/40x"
 	!insertmacro REPORT_TEST "http" 402 $1 $2
 
 	; -- PUT
-	!define /redef LINK 'https://httpbin.org/status/403'
+	!define /redef LINK '${urlbase}/403'
 	!define /redef FILE '$g_workdir\_test_status_403_put.json'
 	DetailPrint 'NScurl::http PUT "${LINK}" "${FILE}"'
 	NScurl::http PUT "${LINK}" "${FILE}" /RETURN "@id@" /INSIST /CANCEL /TAG "test" /END
