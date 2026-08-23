@@ -92,10 +92,11 @@ if not exist "%vswhere%" set vswhere=%ProgramFiles(x86)%\Microsoft Visual Studio
 if not exist "%vswhere%" set vswhere=%ProgramFiles%\Microsoft Visual Studio\Installer\vswhere.exe
 if not exist "%vswhere%" echo ERROR: Missing "vswhere.exe"&& pause && exit /b 1
 
-if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version 17 -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v143
-if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version 16 -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v142
-if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version 15 -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v141
-if not exist "%vcvarsall%" echo ERROR: Missing "Visual Studio 2017-2022"&& pause && exit /b 2
+if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version [18^,19^) -prerelease -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v145
+if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version [17^,18^) -prerelease -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v143
+if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version [16^,17^) -prerelease -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v142
+if not exist "%vcvarsall%" for /f "delims=*" %%i in ('"%vswhere%" -version [15^,16^) -prerelease -requires Microsoft.Component.MSBuild -property installationPath 2^> nul') do set vcvarsall=%%i\VC\Auxiliary\Build\VCVarsAll.bat&& set toolset=v141
+if not exist "%vcvarsall%" echo ERROR: Missing "Visual Studio 2017-2026"&& pause && exit /b 2
 
 echo --- %vcvarsall%
 echo --- toolset = %toolset%
