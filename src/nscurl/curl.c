@@ -193,6 +193,8 @@ void CurlRequestFormatError( _In_ PCURL_REQUEST pReq, _In_opt_ LPTSTR pszError, 
 							pReq->Error.pszHttp = MyStrDup( eA2A, "Bad Gateway" );
 						} else if (pReq->Error.iHttp == 503) {
 							pReq->Error.pszHttp = MyStrDup( eA2A, "Service Unavailable" );
+						} else if (pReq->Error.iHttp == 504) {
+							pReq->Error.pszHttp = MyStrDup( eA2A, "Gateway Timeout" );
 						} else {
 							pReq->Error.pszHttp = MyStrDup( eA2A, "Error" );
 						}
