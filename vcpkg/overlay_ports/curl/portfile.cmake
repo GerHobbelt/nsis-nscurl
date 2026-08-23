@@ -4,7 +4,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO curl/curl
     REF ${curl_version}
-    SHA512 452a76a238b6fa63d579eea37551cab9a02003fd542895905cf5ddc6b01b845697d30ebf5bf7b74db2c73113da3dcaf88d09093c9e2bdf8b4958690625d8800c
+    SHA512 0ab6c99c3d5b86fb65c526db517c3159b11db2f8d82552d635c4887059c0602288603c93b754ce0ec543ea2f275122ccec2c8dcd866c2611b5b949c728ee72df
     HEAD_REF master
     PATCHES
         dependencies.patch
@@ -12,7 +12,6 @@ vcpkg_from_github(
         nscurl/curl_toolhelp.diff           # nscurl: no Tool Help calls (i.e. CreateToolhelp32Snapshot). inexistent in NT4, unneeded by nscurl
         nscurl/curl_wspiapi.diff            # nscurl: fix linking to Ws2_32!getaddrinfo and Ws2_32!freeaddrinfo when _WIN32_WINNT <= 0x0500
         nscurl/curl_cmakelists.patch        # nscurl: _WIN32_WINNT >= Vista restriction
-        nscurl/curl_GetFileSizeEx_schannel_verify.patch # nscurl: kernel32!GetFileSizeEx is unavailable in NT4
         nscurl/curl_lib_curl_threads_h.patch     # nscurl: prevent using CONDITYION_VARIABLE in NT4 builds
         nscurl/curl_lib_curl_threads_c.patch     # nscurl: prevent using CONDITYION_VARIABLE in NT4 builds
         nscurl/curl_lib_easy_lock.patch     # nscurl: prevent using SRWLOCK in NT4 builds
