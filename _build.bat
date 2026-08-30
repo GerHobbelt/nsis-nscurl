@@ -146,6 +146,9 @@ call :copy LICENSE.md  %pkgdir%\LICENSE.md
 call :copy %vcpkginstdir%\share\brotli\copyright   %pkgdir%\LICENSE.brotli.md
 call :copy %vcpkginstdir%\share\curl\copyright     %pkgdir%\LICENSE.curl.md
 call :copy %vcpkginstdir%\share\nghttp2\copyright  %pkgdir%\LICENSE.nghttp2.md
+call :copy %vcpkginstdir%\share\nghttp3\copyright  %pkgdir%\LICENSE.nghttp3.md
+call :copy %vcpkginstdir%\share\ngtcp2\copyright   %pkgdir%\LICENSE.ngtcp2.md
+call :copy %vcpkginstdir%\share\sfparse\copyright  %pkgdir%\LICENSE.sfparse.md
 call :copy %vcpkginstdir%\share\openssl\copyright  %pkgdir%\LICENSE.openssl.md
 call :copy %vcpkginstdir%\share\zlib\copyright     %pkgdir%\LICENSE.zlib.md
 call :copy %vcpkginstdir%\share\zstd\copyright     %pkgdir%\LICENSE.zstd.md
