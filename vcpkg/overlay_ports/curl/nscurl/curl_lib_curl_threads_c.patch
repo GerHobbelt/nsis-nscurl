@@ -1,23 +1,21 @@
 diff --git a/lib/curl_threads.c b/lib/curl_threads.c
 --- a/lib/curl_threads.c
 +++ b/lib/curl_threads.c
-@@ -186,7 +186,8 @@
-   return rc ? CURLE_UNRECOVERABLE_POLL : CURLE_OK;
- }
+@@ -136,7 +136,8 @@
  
--#elif defined(_WIN32)
-+/* [nscurl] original curl implementation based on CONDITION_VARIABLE */
-+#elif defined(_WIN32) && (_WIN32_WINNT >= _WIN32_WINNT_VISTA)
+ #ifdef USE_MUTEX
+ 
+-#ifdef _WIN32
++/* [nscurl] original implementation using native CONDITION_VARIABLE (targeting vista) */
++#if defined(_WIN32) && (_WIN32_WINNT >= _WIN32_WINNT_VISTA)
  
  void Curl_cond_signal(CONDITION_VARIABLE *c)
  {
-@@ -207,6 +208,120 @@
-            CURLE_OPERATION_TIMEDOUT : CURLE_UNRECOVERABLE_POLL;
-   }
-   return CURLE_OK;
-+}
-+
-+/* [nscurl] custom implementation without CONDITION_VARIABLE (available starting in Vista) */
+@@ -169,6 +170,130 @@
+   return tid == GetCurrentThreadId();
+ }
+ 
++/* [nscurl] custom implementation of CONDITION_VARIABLE (targeting nt4..xp) */
 +#elif defined(_WIN32) && (_WIN32_WINNT < _WIN32_WINNT_VISTA)
 +
 +void Curl_cond_init(curl_cond_t *c)
@@ -121,6 +119,16 @@ diff --git a/lib/curl_threads.c b/lib/curl_threads.c
 +  }
 +}
 +
++curl_thread_id_t Curl_thread_get_current_id(void)
++{
++  return GetCurrentThreadId();
++}
++
++bool Curl_thread_is_current(curl_thread_id_t tid)
++{
++  return tid == GetCurrentThreadId();
++}
++
 +void Curl_cond_destroy(curl_cond_t *c)
 +{
 +  if (c) {
@@ -129,6 +137,8 @@ diff --git a/lib/curl_threads.c b/lib/curl_threads.c
 +    }
 +    DeleteCriticalSection(&c->signals_mutex);
 +  }
- }
- #else
- #error neither HAVE_THREADS_POSIX nor _WIN32 defined
++}
++ 
+ #elif defined(HAVE_THREADS_POSIX)
+ 
+ void Curl_cond_signal(pthread_cond_t *c)

@@ -6,14 +6,14 @@ diff --git a/lib/easy_lock.h b/lib/easy_lock.h
  #define GLOBAL_INIT_IS_THREADSAFE
  
 -#ifdef _WIN32
-+/* [nscurl] legacy easy-locks on NT4 */
-+#if defined(_WIN32_WINNT) && _WIN32_WINNT >= 0x600
++/* [nscurl] original implementation using SRWLOCK (targeting vista) */
++#if defined(_WIN32_WINNT) && (_WIN32_WINNT >= _WIN32_WINNT_VISTA)
  
  #define curl_simple_lock      SRWLOCK
  #define CURL_SIMPLE_LOCK_INIT SRWLOCK_INIT
-@@ -72,6 +73,8 @@
-       __builtin_ia32_pause();
+@@ -73,6 +74,8 @@
  #elif defined(__aarch64__)
+       /* NOLINTNEXTLINE(portability-no-assembler) */
        __asm__ volatile("yield" ::: "memory");
 +#elif defined(_WIN32)
 +      Sleep(1);

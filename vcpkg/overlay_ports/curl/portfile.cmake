@@ -4,7 +4,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO curl/curl
     REF ${curl_version}
-    SHA512 0ab6c99c3d5b86fb65c526db517c3159b11db2f8d82552d635c4887059c0602288603c93b754ce0ec543ea2f275122ccec2c8dcd866c2611b5b949c728ee72df
+    SHA512 6284a82c908329fda4b5a8c2efe409bf477a1fd79a0b71c04ae62ee407a4f00751722e98c1b73c728b0b79ee032eed1d1903876783c48cc6be71166619c025a7
     HEAD_REF master
     PATCHES
         dependencies.patch
@@ -14,8 +14,8 @@ vcpkg_from_github(
         nscurl/curl_cmakelists.patch        # nscurl: _WIN32_WINNT >= Vista restriction
         nscurl/curl_lib_curl_threads_h.patch     # nscurl: prevent using CONDITYION_VARIABLE in NT4 builds
         nscurl/curl_lib_curl_threads_c.patch     # nscurl: prevent using CONDITYION_VARIABLE in NT4 builds
+        nscurl/curl_lib_curlx_winapi_c.patch     # nscurl: prevent making BCrypt calls NT4 builds. use CryptoAPI instead
         nscurl/curl_lib_easy_lock.patch     # nscurl: prevent using SRWLOCK in NT4 builds
-        nscurl/curl_lib_rand.patch          # nscurl: prevent linking to bcrypt in NT4 builds
         nscurl/curl_lib_system_win32.patch  # nscurl: call nscurl_init() and nscurl_cleanup()
         nscurl/curl_lib_version_win32.patch # nscurl: fix kernel32!(Rtl)VerifyVersionInfo in NT4 (since curl/8.13.0)
 )
